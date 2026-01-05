@@ -1,0 +1,17 @@
+# --- CORE FRAMEWORK ---
+fastapi==0.115.0          # Framework chính để xây dựng các API
+uvicorn==0.32.0           # Server chạy ứng dụng FastAPI (ASGI server)
+
+# --- DATABASE & ORM ---
+sqlalchemy==2.0.35        # Thư viện ORM để làm việc với Database bằng code Python
+psycopg2-binary==2.9.9    # Driver kết nối Python với hệ quản trị CSDL PostgreSQL
+alembic==1.13.3           # Công cụ quản lý và đồng bộ cấu trúc bảng (Migrations)
+
+# --- SECURITY & AUTHENTICATION ---
+python-jose[cryptography]==3.3.0  # Xử lý mã hóa và giải mã JWT (Json Web Token)
+passlib[bcrypt]==1.7.4            # Thư viện băm (hash) mật khẩu Admin an toàn
+python-multipart==0.0.12          # Hỗ trợ xử lý dữ liệu từ Form (Login) và Upload file
+
+# --- UTILITIES ---
+pydantic-settings==2.6.0          # Quản lý cấu trúc file cấu hình .env an toàn
+email-validator==2.2.0            # Kiểm tra định dạng email hợp lệ (cho bảng User/Contact)
