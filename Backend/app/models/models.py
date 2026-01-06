@@ -15,6 +15,7 @@ class Myinfo(Base):
     hometown = Column(String, nullable = False)
     major = Column(String, nullable = False)
     languages = Column(ARRAY(String), nullable = False)
+    frameworks = Column(ARRAY(String), nullable = False)
     # Dùng JSONB để lưu các liên kết mạng xã hội linh hoạt
     # Ví dụ: {"github": "link...", "facebook": "link..."}
     social_links = Column(JSONB, nullable = True )
@@ -51,13 +52,14 @@ class Project(Base):
 
     id = Column(Integer, primary_key = True, index = True)
     title = Column (String, nullable = False, unique = True)
-    description = Column(String, nullable = True)
-    thumbnail_url = Column(String, nullable = True)
-    project_url = Column(String, nullable = True)
+    description = Column(String, nullable = False)
+    thumbnail_url = Column(String, nullable = False)
+    project_url = Column(String, nullable = False)
     deploy_url = Column(String, nullable = True)
+    #tech_stack = frameworks 
     tech_stack = Column(ARRAY(String), nullable = True)
-    created_at = Column(DateTime(timezone=True), server_default=func.now())
-    last_updated = Column(DateTime(timezone=True), onupdate=func.now())
+    created_at = Column(DateTime(timezone=True), nullable=False)
+    last_updated = Column(DateTime(timezone=True), nullable=False)
 
 
 # =======Bảng Category==========
@@ -85,6 +87,7 @@ class Blog(Base):
     last_updated = Column(DateTime(timezone=True), onupdate=func.now())
     status = Column(String, nullable = False, default = "pending")  # pending, published, deleted
     slug = Column (String, unique = True, index = True, nullable = False)
+    thumbnail_url = Column(String, nullable = False)
     category = relationship("Category", back_populates = "blogs")
 
 
@@ -99,3 +102,13 @@ class Contact(Base):
     message = Column(Text, nullable = False)
     status = Column(String, nullable = False, default = "new")  # new, read
     created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+
+#======== Bảng Config System lưu trữ các cờ quan trọng ====== (hiện tại dùng để lưu cờ đã có dữ liệu mẫu chưa)
+class SystemConfig(Base):
+    __tablename__="system_configs"
+
+    id = Column(Integer, primary_key = True, index = True)
+    config_key = Column(String, unique = True, index = True) # is_seeded
+    config_value = Column(String) # True or False or number (string)
+
