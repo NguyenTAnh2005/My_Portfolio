@@ -25,7 +25,7 @@ async def fetch_github_repo_info(repo_url: str):
     async with httpx.AsyncClient() as client:
         try:
             repo_response = await client.get(base_api_url, headers = headers)
-            lang_response = await client.get(base_api_url, headers = headers)
+            lang_response = await client.get(languages_url, headers = headers)
 
             if repo_response.status_code == 200:
                 repo_data = repo_response.json()
@@ -34,7 +34,7 @@ async def fetch_github_repo_info(repo_url: str):
                     "description" : repo_data.get("description"),
                     "created_at" : repo_data.get("created_at"),
                     "last_updated" : repo_data.get("pushed_at"),
-                    "tech_stack" : list(lang_data.key())
+                    "tech_stack" : list(lang_data.keys())
                 }
             else:
                 print(f"❌ Lỗi từ GitHub: {repo_response.status_code}")
